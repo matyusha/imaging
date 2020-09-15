@@ -10,12 +10,11 @@ import com.haulmont.cuba.gui.app.core.inputdialog.InputParameter;
 import com.haulmont.cuba.gui.components.*;
 import com.haulmont.cuba.gui.screen.*;
 import com.haulmont.cuba.gui.upload.FileUploadingAPI;
+import org.apache.commons.codec.StringEncoderComparator;
 
 import javax.inject.Inject;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @UiController("imaging_")
 @UiDescriptor("new-screen.xml")
@@ -92,6 +91,7 @@ public class NewScreen extends Screen {
                     answer.add(s);
                 }
             }
+            Collections.sort(answer);
             result.setValue("Результат:    " + String.join(" ", answer));
         } catch (NullPointerException e) {
             notifications.create().withCaption("Введите данные").show();
