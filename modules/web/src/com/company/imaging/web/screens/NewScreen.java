@@ -68,7 +68,7 @@ public class NewScreen extends Screen {
                 a2.setVisible(false);
                 num.setVisible(true);
                 taskDescription.setValue("Введите положительное целое число num.\nПосле нажатия кнопки посчитать появится" +
-                        "развёрнутый вид num");
+                        " развёрнутый вид num");
                 break;
         }
         result.setValue("");
