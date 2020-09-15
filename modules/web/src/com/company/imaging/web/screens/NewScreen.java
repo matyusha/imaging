@@ -1,5 +1,6 @@
 package com.company.imaging.web.screens;
 
+import com.haulmont.cuba.core.global.Metadata;
 import com.haulmont.cuba.gui.Dialogs;
 import com.haulmont.cuba.gui.Notifications;
 import com.haulmont.cuba.gui.Screens;
@@ -8,9 +9,9 @@ import com.haulmont.cuba.gui.app.core.inputdialog.DialogActions;
 import com.haulmont.cuba.gui.app.core.inputdialog.InputDialog;
 import com.haulmont.cuba.gui.app.core.inputdialog.InputParameter;
 import com.haulmont.cuba.gui.components.*;
+import com.haulmont.cuba.gui.export.*;
 import com.haulmont.cuba.gui.screen.*;
 import com.haulmont.cuba.gui.upload.FileUploadingAPI;
-import org.apache.commons.codec.StringEncoderComparator;
 
 import javax.inject.Inject;
 import java.io.*;
@@ -32,6 +33,8 @@ public class NewScreen extends Screen {
     @Inject
     private LookupField<String> tasks;
 
+    @Inject
+    ExportDisplay exportDisplay;
     @Inject
     Notifications notifications;
     @Inject
@@ -57,14 +60,14 @@ public class NewScreen extends Screen {
                 a1.setVisible(true);
                 a2.setVisible(true);
                 num.setVisible(false);
-                taskDescription.setValue("Введите два массива строк a1 и a2. После нажатия кнопки посчитать появится " +
-                        "отсортированный массив в лексикографическом порядке строк a1, которые являются подстроками строк a2.");
+                taskDescription.setValue("Введите два массива строк a1 и a2.\nПосле нажатия кнопки посчитать появится " +
+                        "отсортированный в лексикографическом порядке массив строк a1, которые являются подстроками строк a2.");
                 break;
             case "Задача 2":
                 a1.setVisible(false);
                 a2.setVisible(false);
                 num.setVisible(true);
-                taskDescription.setValue("Введите положительное целое число num. После нажатия кнопки посчитать появится" +
+                taskDescription.setValue("Введите положительное целое число num.\nПосле нажатия кнопки посчитать появится" +
                         "развёрнутый вид num");
                 break;
         }
@@ -181,14 +184,14 @@ public class NewScreen extends Screen {
                     .withCloseListener(closeEvent -> {
                         if (closeEvent.getCloseAction().equals(InputDialog.INPUT_DIALOG_OK_ACTION)) {
                             String name = closeEvent.getValue("name");
+                            byte[] bytes;
                             try {
-                                FileWriter fileWriter = new FileWriter(name + ".txt");
-                                fileWriter.write(finalStr);
-                                fileWriter.flush();
-                                notifications.create().withCaption("Задача была сохранена в файле " + name + ".txt").show();
-                            } catch (IOException e) {
-                                e.printStackTrace();
+                                bytes = finalStr.getBytes("UTF-8");
+                            } catch (UnsupportedEncodingException e) {
+                                throw new RuntimeException(e);
                             }
+                            exportDisplay.show(new ByteArrayDataProvider(bytes), name + ".txt", ExportFormat.TEXT);
+                            notifications.create().withCaption("Задача была сохранена в файле " + name + ".txt").show();
                         }
                     }).show();
         }
