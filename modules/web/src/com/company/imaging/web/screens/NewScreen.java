@@ -101,7 +101,10 @@ public class NewScreen extends Screen {
                 }
             }
             Collections.sort(answer);
-            result.setValue("Результат:    " + String.join(" ", answer));
+            if (answer.size() != 0)
+                result.setValue("Результат:     " + String.join(" ", answer));
+            else
+                result.setValue("Ни одна строка из a1 не являлась подстрокой a2");
         } catch (NullPointerException e) {
             notifications.create().withCaption("Введите данные").show();
         }
@@ -191,7 +194,6 @@ public class NewScreen extends Screen {
                                 throw new RuntimeException(e);
                             }
                             exportDisplay.show(new ByteArrayDataProvider(bytes), name + ".txt", ExportFormat.TEXT);
-                            notifications.create().withCaption("Задача была сохранена в файле " + name + ".txt").show();
                         }
                     }).show();
         }
