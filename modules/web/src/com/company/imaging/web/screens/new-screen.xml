@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://newScreen.caption"
+        messagesPack="com.company.imaging.web.screens">
+    <layout spacing="true">
+        <lookupField id="tasks" align="TOP_CENTER" nullOptionVisible="false"/>
+        <hbox spacing="true" align="TOP_CENTER">
+            <vbox spacing="true">
+                <textField id="a1" caption="a1" align="TOP_CENTER" visible="false"/>
+                <textField id="a2" caption="a2" align="TOP_CENTER" visible="false"/>
+            </vbox>
+            <textField id="num" align="MIDDLE_CENTER" caption="num" visible="false" datatype="int" conversionErrorMessage="Введите положительное целое число">
+                <validator class="com.company.imaging.PositiveIntegerValidator"/>
+            </textField>
+        </hbox>
+        <hbox spacing="true" align="TOP_CENTER">
+            <button id="calculate"
+                    caption="Посчитать"/>
+            <button id="save"
+                    caption="Сохранить" align="TOP_CENTER"/>
+            <button id="upload" caption="Загрузить"/>
+        </hbox>
+        <label id="result" align="TOP_CENTER"/>
+    </layout>
+</window>
