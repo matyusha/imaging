@@ -4,6 +4,7 @@
         messagesPack="com.company.imaging.web.screens">
     <layout spacing="true">
         <lookupField id="tasks" align="TOP_CENTER" nullOptionVisible="false"/>
+        <label id="taskDescription" align="TOP_CENTER"/>
         <hbox spacing="true" align="TOP_CENTER">
             <vbox spacing="true">
                 <textField id="a1" caption="a1" align="TOP_CENTER" visible="false"/>

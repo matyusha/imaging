@@ -28,6 +28,8 @@ public class NewScreen extends Screen {
     @Inject
     private Label<String> result;
     @Inject
+    private Label<String> taskDescription;
+    @Inject
     private LookupField<String> tasks;
 
     @Inject
@@ -53,14 +55,17 @@ public class NewScreen extends Screen {
         switch (tasks.getValue()) {
             case "Задача 1":
                 a1.setVisible(true);
-                a1.setCaption("Given two arrays of strings a1 and a2 return a sorted array r in lexicographical order of the strings of a1 which are substrings of strings of a2.");
                 a2.setVisible(true);
                 num.setVisible(false);
+                taskDescription.setValue("Введите два массива строк a1 и a2. После нажатия кнопки посчитать появится " +
+                        "отсортированный массив в лексикографическом порядке строк a1, которые являются подстроками строк a2.");
                 break;
             case "Задача 2":
                 a1.setVisible(false);
                 a2.setVisible(false);
                 num.setVisible(true);
+                taskDescription.setValue("Введите положительное целое число num. После нажатия кнопки посчитать появится" +
+                        "развёрнутый вид num");
                 break;
         }
         result.setValue("");
