@@ -31,7 +31,7 @@ cuba {
         isSnapshot = true
     }
     tomcat {
-        dir = "$project.rootDir/build/tomcat"
+        dir = "$project.rootDir/deploy/tomcat"
         port = "8081"
         debugPort = "8788"
         shutdownPort = "8006"
@@ -173,23 +173,23 @@ task restart(dependsOn: ['stop', ":${modulePrefix}-core:deploy", ":${modulePrefi
 }
 restart.finalizedBy start
 
-task stage(dependsOn: ['setupTomcat', ":${modulePrefix}-core:build", ":${modulePrefix}-web:build"]) {
+task stage(dependsOn: ['setupTomcat', ":${modulePrefix}-core:deploy", ":${modulePrefix}-web:deploy"]) {
     doLast {
         // change port from 8080 to heroku $PORT
-        def file = new File('build/tomcat/conf/server.xml')
+        def file = new File('deploy/tomcat/conf/server.xml')
         file.text = file.text.replace('8081', '${port.http}')
 
         // rename deploy/tomcat/webapps/app to deploy/tomcat/webapps/ROOT
-        def rootFolder = new File('build/tomcat/webapps/ROOT')
+        def rootFolder = new File('deploy/tomcat/webapps/ROOT')
         if (rootFolder.exists()) {
             rootFolder.deleteDir()
         }
 
-        def webAppDir = new File("build/tomcat/webapps/${modulePrefix}")
+        def webAppDir = new File("deploy/tomcat/webapps/${modulePrefix}")
         webAppDir.renameTo(new File(rootFolder.path))
 
         // add local.app.properties for web application
-        def webConfDir = new File('build/tomcat/conf/ROOT/')
+        def webConfDir = new File('deploy/tomcat/conf/ROOT/')
         webConfDir.mkdirs()
         def webProperties = new File(webConfDir, 'local.app.properties')
         webProperties.text = ''' cuba.webContextName = / '''
