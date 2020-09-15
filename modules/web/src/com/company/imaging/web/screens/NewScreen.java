@@ -147,7 +147,12 @@ public class NewScreen extends Screen {
                         break;
                     case "Задача 2":
                         tasks.setValue("Задача 2");
+                        try {
                         num.setValue(Integer.valueOf(br.readLine()));
+                        }
+                        catch (NumberFormatException e) {
+                            notifications.create().withCaption("Некорректные данные в файле").show();
+                        }
                         break;
                 }
                 result.setValue("");
