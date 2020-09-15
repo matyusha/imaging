@@ -177,7 +177,7 @@ task stage(dependsOn: ['setupTomcat', ":${modulePrefix}-core:deploy", ":${module
     doLast {
         // change port from 8080 to heroku $PORT
         def file = new File('deploy/tomcat/conf/server.xml')
-        file.text = file.text.replace('8080', '${port.http}')
+        file.text = file.text.replace('8081', '${port.http}')
 
         // rename deploy/tomcat/webapps/app to deploy/tomcat/webapps/ROOT
         def rootFolder = new File('deploy/tomcat/webapps/ROOT')
