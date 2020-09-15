@@ -53,6 +53,7 @@ public class NewScreen extends Screen {
         switch (tasks.getValue()) {
             case "Задача 1":
                 a1.setVisible(true);
+                a1.setCaption("Given two arrays of strings a1 and a2 return a sorted array r in lexicographical order of the strings of a1 which are substrings of strings of a2.");
                 a2.setVisible(true);
                 num.setVisible(false);
                 break;
